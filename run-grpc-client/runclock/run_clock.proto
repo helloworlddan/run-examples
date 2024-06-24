@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option go_package = "github.com/helloworlddan/run-grpc-test/runclock";
+
+service RunClock {
+  rpc GetTime(Empty) returns (Time) {}
+}
+
+message Time {
+  string formatted = 1;
+}
+
+message Empty {}
