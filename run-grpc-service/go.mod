@@ -4,7 +4,7 @@ go 1.22.4
 
 require (
 	github.com/helloworlddan/run v0.0.0-unpublished
-	// github.com/helloworlddan/run v0.3.2
+	// github.com/helloworlddan/run v0.4.1
 	google.golang.org/grpc v1.64.0
 	google.golang.org/protobuf v1.34.2
 )

@@ -7,8 +7,6 @@ require (
 	google.golang.org/protobuf v1.34.2
 )
 
-replace github.com/helloworlddan/run v0.0.0-unpublished => ../../run/
-
 require (
 	golang.org/x/net v0.26.0 // indirect
 	golang.org/x/sys v0.21.0 // indirect

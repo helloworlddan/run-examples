@@ -4,7 +4,7 @@ go 1.22.4
 
 require (
 	cloud.google.com/go/bigquery v1.61.0
-	// github.com/helloworlddan/run v0.3.2
+	// github.com/helloworlddan/run v0.4.1
 	github.com/helloworlddan/run v0.0.0-unpublished
 )
 
