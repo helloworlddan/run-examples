@@ -6,20 +6,20 @@ import (
 
 	"github.com/helloworlddan/run"
 	"github.com/helloworlddan/run-examples/run-grpc-service/runclock"
+	"google.golang.org/grpc"
 )
 
 func main() {
-	service := run.NewService()
+	server := grpc.NewServer()
+	runclock.RegisterRunClockServer(server, clockServer{})
 
-	runclock.RegisterRunClockServer(service.GRPCServer(), clockServer{})
-
-	service.ShutdownFunc(func(ctx context.Context) {
+	shutdown := func(ctx context.Context) {
 		run.Debug(nil, "shutting down connections...")
 		time.Sleep(time.Second * 1) // Pretending to clean up
 		run.Debug(nil, "connections closed")
-	})
+	}
 
-	err := service.ListenAndServeGRPC()
+	err := run.ServeGRPC(shutdown, server)
 	if err != nil {
 		run.Fatal(nil, err)
 	}

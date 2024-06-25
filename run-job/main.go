@@ -9,8 +9,6 @@ import (
 )
 
 func main() {
-	_ = run.NewJob()
-
 	// Store config
 	run.PutConfig("my.app.key", "some value")
 	cfgVal, err := run.GetConfig("my.app.key")

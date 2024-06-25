@@ -9,22 +9,18 @@ import (
 	"github.com/helloworlddan/run"
 )
 
-var service *run.Service
-
 func main() {
-	service = run.NewService()
-
-	service.HandleFunc("/", indexHandler)
+	http.HandleFunc("/", indexHandler)
 
 	run.PutConfig("some-key", "some-val")
 
-	service.ShutdownFunc(func(ctx context.Context) {
+	shutdown := func(ctx context.Context) {
 		run.Debug(nil, "shutting down connections...")
 		time.Sleep(time.Second * 1) // Pretending to clean up
 		run.Debug(nil, "connections closed")
-	})
+	}
 
-	err := service.ListenAndServeHTTP()
+	err := run.ServeHTTP(shutdown, nil)
 	if err != nil {
 		run.Fatal(nil, err)
 	}
