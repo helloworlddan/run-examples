@@ -27,7 +27,7 @@ func main() {
 			run.Error(nil, err)
 		}
 	}
-	run.AddLazyClient("nibquery", bqClient, lazyInit)
+	run.AddLazyClient("bigquery", bqClient, lazyInit)
 
 	// Define shutdown behavior
 	shutdown := func(ctx context.Context) {
