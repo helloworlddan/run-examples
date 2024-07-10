@@ -24,6 +24,7 @@ func main() {
 		run.Error(nil, err)
 	}
 	run.AddClient("bigquery", bqClient)
+	defer bqClient.Close()
 
 	// Later usage
 	clientRef, err := run.GetClient("bigquery")
