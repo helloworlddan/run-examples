@@ -23,15 +23,16 @@ func main() {
 	if err != nil {
 		run.Error(nil, err)
 	}
-	run.AddClient("bigquery", bqClient)
+	run.StoreClient("bigquery", bqClient, nil)
 	defer bqClient.Close()
 
 	// Later usage
-	clientRef, err := run.GetClient("bigquery")
+	var bqClient2 *bigquery.Client
+	bqClient2, err = run.UseClient("bigquery", bqClient2)
 	if err != nil {
 		run.Error(nil, err)
 	}
-	bqClient2 := clientRef.(*bigquery.Client)
+
 	_ = bqClient2
 
 	// Make service account authenticated requests
