@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"time"
 
 	"cloud.google.com/go/bigquery"
 	"github.com/helloworlddan/run"
@@ -32,7 +31,9 @@ func main() {
 	// Define shutdown behavior and serve HTTP
 	shutdown := func(ctx context.Context) {
 		run.Debug(nil, "shutting down connections...")
-		time.Sleep(time.Second * 1) // Pretending to clean up
+		if bqClient != nil { // Maybe nil due to lazy loading
+			bqClient.Close()
+		}
 		run.Debug(nil, "connections closed")
 	}
 	err := run.ServeHTTP(shutdown, nil)
