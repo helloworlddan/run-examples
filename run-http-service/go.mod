@@ -2,7 +2,7 @@ module github.com/helloworlddan/run-examples/run-http-service
 
 go 1.22.4
 
-// github.com/helloworlddan/run v0.5.0
+// github.com/helloworlddan/run v0.5.1
 require github.com/helloworlddan/run v0.0.0-unpublished
 
 replace github.com/helloworlddan/run v0.0.0-unpublished => ../../run/
