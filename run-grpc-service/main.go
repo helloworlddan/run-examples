@@ -13,13 +13,11 @@ func main() {
 	server := grpc.NewServer()
 	runclock.RegisterRunClockServer(server, clockServer{})
 
-	shutdown := func(ctx context.Context) {
+	err := run.ServeGRPC(func(ctx context.Context) {
 		run.Debug(nil, "shutting down connections...")
 		time.Sleep(time.Second * 1) // Pretending to clean up
 		run.Debug(nil, "connections closed")
-	}
-
-	err := run.ServeGRPC(shutdown, server)
+	}, server)
 	if err != nil {
 		run.Fatal(nil, err)
 	}

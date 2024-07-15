@@ -23,7 +23,7 @@ func main() {
 	if err != nil {
 		run.Error(nil, err)
 	}
-	run.StoreClient("bigquery", bqClient, nil)
+	run.Client("bigquery", bqClient)
 	defer bqClient.Close()
 
 	// Later usage

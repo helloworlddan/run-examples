@@ -17,7 +17,7 @@ func main() {
 
 	// Store client with lazy initialization
 	var bqClient *bigquery.Client
-	lazyInit := func() {
+	run.LazyClient("bigquery", func() {
 		run.Debug(nil, "lazy init: bigquery")
 		var err error
 		ctx := context.Background()
@@ -25,18 +25,17 @@ func main() {
 		if err != nil {
 			run.Error(nil, err)
 		}
-	}
-	run.StoreClient("bigquery", bqClient, lazyInit)
+		run.Client("bigquery", bqClient)
+	})
 
 	// Define shutdown behavior and serve HTTP
-	shutdown := func(ctx context.Context) {
+	err := run.ServeHTTP(func(ctx context.Context) {
 		run.Debug(nil, "shutting down connections...")
 		if bqClient != nil { // Maybe nil due to lazy loading
 			bqClient.Close()
 		}
 		run.Debug(nil, "connections closed")
-	}
-	err := run.ServeHTTP(shutdown, nil)
+	}, nil)
 	if err != nil {
 		run.Fatal(nil, err)
 	}
